@@ -1,26 +1,17 @@
 import express from 'express';
+import notesRoutes from './routes/notesRoutes.js';
 
 const app = express();
 
-// get endpoint
-app.get('/api/notes', (req, res) => {
-  res.status(200).send({ data: 'Have to walking to park' });
-});
+app.use('/api/notes', notesRoutes);
 
-// post endpoint
-app.post('/api/notes', (req, res) => {
-  res.status(201).json({ message: 'Note created Successfully!' });
-});
+app.get('/api/notes', (req, res) => {});
 
-// put endpoint
-app.put('/api/notes', (req, res) => {
-  res.status(200).json({ message: 'Note updated Successfully!' });
-});
+app.post('/api/notes', (req, res) => {});
 
-// delete endpoint
-app.put('/api/notes', (req, res) => {
-  res.status(200).json({ message: 'Note deleted Successfully!' });
-});
+app.put('/api/notes/:id', (req, res) => {});
+
+app.put('/api/notes/:id', (req, res) => {});
 
 app.listen(5001, () => {
   console.log('Server is running');
