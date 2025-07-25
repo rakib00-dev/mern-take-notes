@@ -15,8 +15,8 @@ export async function createNote(req, res) {
     const { title, content } = req.body;
     const newNote = new Note({ title, content });
 
-    await newNote.save();
-    res.status(201).json({ message: 'notes created successfuly' });
+    const note = await newNote.save();
+    res.status(201).json(note);
   } catch (error) {
     console.error('Server Error in createNote controller', error);
     res.status(500).json({ message: 'Internal Server Error' });
@@ -24,8 +24,25 @@ export async function createNote(req, res) {
 }
 
 export async function updateNote(req, res) {
-  res.status(200).json({ message: 'Note updated Successfully!' });
+  try {
+    const { title, content } = req.body;
+    const updatedNote = Note.findByIdAndUpdate(req.params.id, {
+      title,
+      content,
+    });
+    await updatedNote;
+    res.status(200).json({ message: 'Note updated Successfully!' });
+  } catch (error) {
+    console.error('Server Error in updateNote controller', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 }
 export async function deleteNote(req, res) {
-  res.status(200).json({ message: 'Note deleted Successfully!' });
+  try {
+    await Note.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: 'Note have been deleted Successfully!' });
+  } catch (error) {
+    console.error('Server Error in updateNote controller', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 }
