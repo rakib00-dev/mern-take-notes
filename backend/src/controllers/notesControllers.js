@@ -2,7 +2,7 @@ import Note from '../models/Note.js';
 
 export default async function getAllNotes(req, res) {
   try {
-    const notes = await Note.find();
+    const notes = (await Note.find()).reverse();
     res.status(200).json(notes);
   } catch (error) {
     console.error('Error in geting all notes', error);
