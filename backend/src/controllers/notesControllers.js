@@ -10,6 +10,12 @@ export default async function getAllNotes(req, res) {
   }
 }
 
+export async function getNoteById(req, res) {
+  try {
+    const idNote = Note;
+  } catch (error) {}
+}
+
 export async function createNote(req, res) {
   try {
     const { title, content } = req.body;
@@ -26,14 +32,18 @@ export async function createNote(req, res) {
 export async function updateNote(req, res) {
   try {
     const { title, content } = req.body;
-    const updatedNote = Note.findByIdAndUpdate(req.params.id, {
-      title,
-      content,
-    });
+    const updatedNote = Note.findByIdAndUpdate(
+      req.params.id,
+      {
+        title,
+        content,
+      },
+      { new: true }
+    );
     await updatedNote;
     if (!updateNote) return res.status(404).json({ message: 'Note not found' });
 
-    res.status(200).json({ message: 'Note updated Successfully!' });
+    res.status(200).json(updateNote);
   } catch (error) {
     console.error('Server Error in updateNote controller', error);
     res.status(500).json({ message: 'Internal Server Error' });
