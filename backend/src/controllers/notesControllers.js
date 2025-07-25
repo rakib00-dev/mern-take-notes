@@ -1,6 +1,6 @@
 import Note from '../models/Note.js';
 
-export default async function getAllNotes(req, res) {
+export default async function getAllNotes(_, res) {
   try {
     const notes = await Note.find().sort({ createdAt: -1 });
     res.status(200).json(notes);
