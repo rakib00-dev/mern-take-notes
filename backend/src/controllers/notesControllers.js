@@ -31,6 +31,8 @@ export async function updateNote(req, res) {
       content,
     });
     await updatedNote;
+    if (!updateNote) return res.status(404).json({ message: 'Note not found' });
+
     res.status(200).json({ message: 'Note updated Successfully!' });
   } catch (error) {
     console.error('Server Error in updateNote controller', error);
