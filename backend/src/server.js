@@ -1,15 +1,17 @@
 import express from 'express';
 import notesRoutes from './routes/notesRoutes.js';
 import { connectDB } from './config/db.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 5001;
 
 connectDB();
 
 app.use('/api/notes', notesRoutes);
 
-app.listen(5001, () => {
-  console.log('Server is running');
+app.listen(PORT, () => {
+  console.log('Server is running at', `http://localhost:${5001}/api/notes`);
 });
-
-//mongodb+srv://rakib00dev:8rhXaSADH7FBgzbn@cluster0.vrnokce.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
