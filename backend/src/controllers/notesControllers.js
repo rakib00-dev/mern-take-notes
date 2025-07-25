@@ -12,8 +12,13 @@ export default async function getAllNotes(req, res) {
 
 export async function getNoteById(req, res) {
   try {
-    const idNote = Note;
-  } catch (error) {}
+    const idNote = await Note.findById(req.params.id);
+    idNote;
+    res.status(200).json(idNote);
+  } catch (error) {
+    console.error('Server Error in createNote controller', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 }
 
 export async function createNote(req, res) {
