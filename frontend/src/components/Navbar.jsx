@@ -11,7 +11,7 @@ const Navbar = () => {
         <div>
           <button className="btn btn-primary">
             <PlusIcon className="size-5" />
-            Create
+            New Note
           </button>
         </div>
       </div>
