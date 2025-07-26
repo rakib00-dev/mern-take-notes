@@ -1,5 +1,6 @@
 import React from 'react';
 import { PlusIcon } from 'lucide-react';
+import { Link } from 'react-router';
 
 const Navbar = () => {
   return (
@@ -9,10 +10,10 @@ const Navbar = () => {
           TakeNotes
         </h1>
         <div>
-          <button className="btn btn-primary">
+          <Link className="btn btn-primary" to={'/create'}>
             <PlusIcon className="size-5" />
             New Note
-          </button>
+          </Link>
         </div>
       </div>
     </header>
