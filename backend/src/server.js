@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use(rateLimiter);
 
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:5173' }));
 
 app.use('/api/notes', notesRoutes);
 
