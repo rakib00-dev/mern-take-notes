@@ -2,6 +2,7 @@ import { ArrowLeftIcon } from 'lucide-react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router';
+import axios from 'axios';
 // import api from '../lib/axios';
 
 const CreatePage = () => {
@@ -9,7 +10,39 @@ const CreatePage = () => {
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = () => {};
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // if (!title.trim() || !content.trim()) {
+    //   toast.error('All fields are required');
+    //   return;
+    // }
+
+    setLoading(true);
+
+    try {
+      await axios.post('http://localhost:5001/api/notes', {
+        title,
+        content,
+      });
+      navigate('/');
+      toast.success('successfully send the data');
+    } catch (error) {
+      console.log('Error at creating notes', error);
+      if (error.response.status === 429) {
+        toast.error("Chill Bro!, you're sending too many requiest", {
+          duration: 4000,
+          icon: '💀',
+        });
+      } else {
+        toast.error('Failed to create notes');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-base-200">
