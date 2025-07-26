@@ -35,7 +35,7 @@ const HomePage = () => {
     <div className="min-h-screen">
       <Navbar />
       {isRateLimited && <RateLimitedUI />}
-      <div className="grid grid-cols-1 mx-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10">
+      <div className="grid grid-cols-1 mx-4 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-10">
         {isLoading && (
           <div className="text-center text-primary">Notes are loading...</div>
         )}
