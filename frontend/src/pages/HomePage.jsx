@@ -46,7 +46,7 @@ const HomePage = () => {
 
         {notes.length > 0 &&
           !isRateLimited &&
-          notes.map((note) => (
+          notes?.map((note) => (
             <NoteCard key={note._id} note={note} setNotes={setNotes} />
           ))}
       </div>
