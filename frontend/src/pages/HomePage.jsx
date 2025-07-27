@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar';
 import RateLimitedUI from '../components/RateLimitedUI';
 import NoteCard from '../components/NoteCard';
 import api from '../lib/axios';
+import NotesNotFound from '../components/NotesNotFound';
 
 const HomePage = () => {
   const [isRateLimited, setIsRateLimited] = useState(false);
@@ -40,6 +41,9 @@ const HomePage = () => {
         {isLoading && (
           <div className="text-center text-primary">Notes are loading...</div>
         )}
+
+        {notes.length === 0 && !isRateLimited && <NotesNotFound />}
+
         {notes.length > 0 &&
           !isRateLimited &&
           notes.map((note) => (
