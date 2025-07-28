@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import toast from 'react-hot-toast';
 
 import Navbar from '../components/Navbar';
@@ -17,7 +16,15 @@ const HomePage = () => {
     const fetchingData = async () => {
       try {
         const res = await api.get('/notes');
-        setNotes(res.data);
+        console.log('API response:', res.data);
+
+        const data = Array.isArray(res.data)
+          ? res.data
+          : Array.isArray(res.data.notes)
+          ? res.data.notes
+          : [];
+
+        setNotes(data);
       } catch (error) {
         console.log('Error on data fetching', error);
         if (error.response.status === 429) {
@@ -33,6 +40,8 @@ const HomePage = () => {
     fetchingData();
   }, []);
 
+  console.log(notes);
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -42,13 +51,13 @@ const HomePage = () => {
           <div className="text-center text-primary">Notes are loading...</div>
         )}
 
-        {notes.length === 0 && !isRateLimited && <NotesNotFound />}
-
-        {notes.length > 0 &&
-          !isRateLimited &&
-          notes?.map((note) => (
+        {notes.length === 0 && !isRateLimited ? (
+          <NotesNotFound />
+        ) : (
+          notes.map((note) => (
             <NoteCard key={note._id} note={note} setNotes={setNotes} />
-          ))}
+          ))
+        )}
       </div>
     </div>
   );
